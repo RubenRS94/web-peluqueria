@@ -1,522 +1,532 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lex Aurea | Bufete de Abogados Premium</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #f7f7f5;
-      --white: #ffffff;
-      --text: #171717;
-      --muted: #52525b;
-      --border: #e4e4e7;
-      --brand: #0f2a43;
-      --brand-2: #123a5c;
-      --gold: #b28a4a;
-      --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-      --radius: 18px;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      color: var(--text);
-      background: var(--bg);
-      line-height: 1.6;
-    }
-
-    img { width: 100%; display: block; border-radius: 14px; object-fit: cover; }
-
-    .container {
-      width: min(1080px, 92%);
-      margin-inline: auto;
-    }
-
-    .section { padding: 72px 0; }
-
-    h1, h2, h3, h4 {
-      font-family: 'Playfair Display', serif;
-      line-height: 1.2;
-      color: var(--brand);
-    }
-
-    p { color: var(--muted); }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 14px 24px;
-      border-radius: 999px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: 0.25s ease;
-      border: 1px solid transparent;
-      min-height: 48px;
-    }
-
-    .btn-primary { background: #25D366; color: #fff; }
-    .btn-primary:hover { filter: brightness(0.95); transform: translateY(-1px); }
-    .btn-secondary {
-      background: transparent;
-      border-color: var(--brand);
-      color: var(--brand);
-    }
-    .btn-secondary:hover { background: var(--brand); color: #fff; }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: rgba(255,255,255,.95);
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(8px);
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      min-height: 76px;
-    }
-
-    .logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
-      color: var(--brand);
-      text-decoration: none;
-      font-weight: 700;
-      letter-spacing: .4px;
-    }
-
-    .logo span { color: var(--gold); }
-
-    .menu {
-      display: flex;
-      list-style: none;
-      gap: 18px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .menu a {
-      text-decoration: none;
-      color: var(--text);
-      font-weight: 500;
-      font-size: .92rem;
-    }
-
-    .hero {
-      background: linear-gradient(rgba(15,42,67,.78), rgba(15,42,67,.72)),
-      url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1600&q=80') center/cover;
-      color: #fff;
-      min-height: 76vh;
-      display: grid;
-      align-items: center;
-    }
-
-    .hero-wrap {
-      display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 28px;
-      padding: 56px 0;
-      align-items: center;
-    }
-
-    .hero h1 { color: #fff; font-size: clamp(2rem, 4.5vw, 3.6rem); margin-bottom: 14px; }
-    .hero p { color: #eef2f7; max-width: 58ch; margin-bottom: 24px; font-size: 1.05rem; }
-    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-
-    .hero-card {
-      background: rgba(255,255,255,.1);
-      border: 1px solid rgba(255,255,255,.35);
-      border-radius: var(--radius);
-      padding: 22px;
-      box-shadow: var(--shadow);
-    }
-
-    .hero-card h3 { color: #fff; margin-bottom: 6px; }
-    .hero-card p { margin-bottom: 0; color: #e7edf4; }
-
-    .grid-4, .grid-3, .grid-2 {
-      display: grid;
-      gap: 18px;
-    }
-
-    .grid-4 { grid-template-columns: repeat(4, 1fr); }
-    .grid-3 { grid-template-columns: repeat(3, 1fr); }
-    .grid-2 { grid-template-columns: repeat(2, 1fr); }
-
-    .card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      box-shadow: var(--shadow);
-    }
-
-    .kpi h3 { font-size: 2rem; color: var(--brand); }
-    .kpi p { font-size: .95rem; }
-
-    .section-title {
-      margin-bottom: 26px;
-      font-size: clamp(1.7rem, 3.8vw, 2.6rem);
-      text-align: center;
-    }
-
-    .section-sub {
-      text-align: center;
-      max-width: 70ch;
-      margin: 0 auto 34px;
-    }
-
-    .specialty img, .team-member img, .case-card img, .about img { height: 220px; }
-    .specialty h3, .team-member h3 { margin: 14px 0 6px; }
-
-    .value-item {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 18px;
-    }
-
-    .value-item span {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: #e7eef6;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--brand);
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-
-    .about { align-items: center; }
-
-    .testimonial .stars { color: var(--gold); font-size: 1rem; margin-bottom: 8px; }
-
-    .process-step {
-      text-align: center;
-      padding: 18px;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      background: var(--white);
-    }
-
-    .process-step .num {
-      display: inline-flex;
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: var(--brand);
-      color: #fff;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    .faq details {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 14px 16px;
-      margin-bottom: 12px;
-    }
-
-    .faq summary { font-weight: 600; cursor: pointer; color: var(--brand); }
-
-    .cta-band {
-      background: var(--brand);
-      color: #fff;
-      border-radius: var(--radius);
-      padding: 34px;
-      text-align: center;
-    }
-
-    .cta-band h3 { color: #fff; font-size: clamp(1.5rem, 3.5vw, 2.2rem); margin-bottom: 8px; }
-    .cta-band p { color: #dbe7f4; margin-bottom: 16px; }
-
-    .location-grid { align-items: stretch; }
-
-    iframe { width: 100%; min-height: 320px; border: 0; border-radius: 14px; }
-
-    footer {
-      background: #0b1e31;
-      color: #dde5ee;
-      margin-top: 64px;
-      padding: 52px 0 32px;
-    }
-
-    footer p, footer a { color: #dde5ee; text-decoration: none; }
-    footer .logo { color: #fff; display: inline-block; margin-bottom: 12px; }
-
-    .footer-links ul { list-style: none; display: grid; gap: 8px; }
-
-    .social {
-      display: flex;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .social a {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      border: 1px solid rgba(255,255,255,.35);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: .85rem;
-    }
-
-    .sticky-wa {
-      position: fixed;
-      right: 16px;
-      bottom: 16px;
-      z-index: 999;
-      background: #25D366;
-      color: #fff;
-      border-radius: 999px;
-      padding: 12px 16px;
-      text-decoration: none;
-      font-weight: 700;
-      box-shadow: var(--shadow);
-    }
-
-    @media (max-width: 980px) {
-      .menu { display: none; }
-      .hero-wrap, .grid-4, .grid-3, .grid-2, .about, .location-grid, footer .grid-3 { grid-template-columns: 1fr; }
-      .section { padding: 58px 0; }
-      .hero { min-height: 700px; }
-      .nav { min-height: 68px; }
-      .topbar .btn { display: none; }
-    }
-
-    @media (max-width: 560px) {
-      .container { width: 92%; }
-      .hero p { font-size: 1rem; }
-      .btn { width: 100%; }
-      .sticky-wa { right: 12px; bottom: 12px; }
-    }
-  </style>
-</head>
-<body>
-  <header class="topbar">
-    <div class="container nav">
-      <a class="logo" href="#inicio">LEX <span>AUREA</span></a>
-      <ul class="menu">
-        <li><a href="#inicio">Inicio</a></li>
-        <li><a href="#especialidades">Especialidades</a></li>
-        <li><a href="#equipo">Equipo</a></li>
-        <li><a href="#casos">Casos</a></li>
-        <li><a href="#opiniones">Opiniones</a></li>
-        <li><a href="#contacto">Contacto</a></li>
-      </ul>
-      <a class="btn btn-primary" href="https://wa.me/34600111222?text=Hola%2C%20quiero%20consultar%20mi%20caso">Consulta por WhatsApp</a>
-    </div>
-  </header>
-
-  <section class="hero" id="inicio">
-    <div class="container hero-wrap">
-      <div>
-        <h1>Defendemos tus intereses con rigor, experiencia y compromiso.</h1>
-        <p>En Lex Aurea, combinamos estrategia jurídica de alto nivel con una atención cercana para proteger tu patrimonio, tu empresa y tu tranquilidad en cada fase del proceso legal.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="https://wa.me/34600111222?text=Hola%2C%20necesito%20asesoramiento%20legal">Hablar por WhatsApp</a>
-          <a class="btn btn-secondary" href="#especialidades">Ver especialidades</a>
-        </div>
-      </div>
-      <article class="hero-card">
-        <h3>Consulta inicial prioritaria</h3>
-        <p>Respuesta en menos de 15 minutos en horario laboral y evaluación preliminar del caso en el primer contacto.</p>
-      </article>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <h2 class="section-title">Autoridad legal demostrada</h2>
-      <p class="section-sub">Resultados consistentes, metodología precisa y un equipo senior en múltiples áreas legales para clientes particulares y empresas.</p>
-      <div class="grid-4">
-        <article class="card kpi"><h3>22+</h3><p>Años de experiencia jurídica acumulada.</p></article>
-        <article class="card kpi"><h3>1.850+</h3><p>Casos gestionados con seguimiento integral.</p></article>
-        <article class="card kpi"><h3>12</h3><p>Especialidades activas coordinadas por socios.</p></article>
-        <article class="card kpi"><h3>91%</h3><p>Tasa histórica de resolución favorable.</p></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="especialidades">
-    <div class="container">
-      <h2 class="section-title">Especialidades del bufete</h2>
-      <p class="section-sub">Cobertura jurídica integral para conflictos complejos y decisiones estratégicas con impacto personal, patrimonial o empresarial.</p>
-      <div class="grid-3">
-        <article class="card specialty"><img src="https://images.unsplash.com/photo-1453945619913-79ec89a82c51?auto=format&fit=crop&w=900&q=80" alt="Derecho civil"><h3>Derecho Civil</h3><p>Contratos, reclamaciones, responsabilidad civil y conflictos entre particulares.</p></article>
-        <article class="card specialty"><img src="https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=900&q=80" alt="Derecho penal"><h3>Derecho Penal</h3><p>Defensa y acusación particular en procedimientos penales y delitos económicos.</p></article>
-        <article class="card specialty"><img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=900&q=80" alt="Derecho laboral"><h3>Derecho Laboral</h3><p>Despidos, sanciones, negociación colectiva y reclamaciones salariales.</p></article>
-        <article class="card specialty"><img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=900&q=80" alt="Derecho mercantil"><h3>Derecho Mercantil</h3><p>Sociedades, pactos de socios, concursos y conflictos corporativos.</p></article>
-        <article class="card specialty"><img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=900&q=80" alt="Derecho inmobiliario"><h3>Derecho Inmobiliario</h3><p>Compraventas, arrendamientos, vicios ocultos y litigación urbanística.</p></article>
-        <article class="card specialty"><img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=900&q=80" alt="Herencias"><h3>Herencias</h3><p>Planificación sucesoria, impugnación de testamentos y partición de bienes.</p></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <h2 class="section-title">Propuesta de valor</h2>
-      <div class="grid-3">
-        <article class="value-item"><span>1</span><div><h4>Atención personalizada</h4><p>Un abogado responsable de tu caso y comunicación directa por WhatsApp.</p></div></article>
-        <article class="value-item"><span>2</span><div><h4>Asesoramiento experto</h4><p>Estrategias diseñadas por especialistas con experiencia procesal real.</p></div></article>
-        <article class="value-item"><span>3</span><div><h4>Confidencialidad absoluta</h4><p>Protocolos internos estrictos para proteger información sensible.</p></div></article>
-        <article class="value-item"><span>4</span><div><h4>Estrategia legal sólida</h4><p>Análisis de riesgos, escenarios y plan de acción por fases.</p></div></article>
-        <article class="value-item"><span>5</span><div><h4>Rapidez en gestión</h4><p>Respuesta ágil y seguimiento continuo para evitar bloqueos.</p></div></article>
-        <article class="value-item"><span>6</span><div><h4>Enfoque a resultados</h4><p>Negociación y litigación orientadas a objetivos medibles.</p></div></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container grid-2 about">
-      <div>
-        <h2>Sobre Lex Aurea</h2>
-        <p>Somos un bufete premium con sede en Madrid, fundado para ofrecer defensa jurídica de alto nivel a clientes que exigen excelencia técnica y trato cercano. Nuestro modelo combina especialización por áreas, coordinación interdisciplinar y una visión estratégica orientada a proteger tus intereses desde el primer día.</p>
-      </div>
-      <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1200&q=80" alt="Despacho de abogados premium en reunión" />
-    </div>
-  </section>
-
-  <section class="section" id="equipo">
-    <div class="container">
-      <h2 class="section-title">Equipo jurídico</h2>
-      <div class="grid-3">
-        <article class="card team-member"><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=900&q=80" alt="Socia directora"><h3>Marta R. Varela</h3><p>Socia directora · Derecho Civil y Patrimonial.</p></article>
-        <article class="card team-member"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&q=80" alt="Abogado penalista"><h3>Javier Ortega</h3><p>Socio · Penal Económico y Compliance.</p></article>
-        <article class="card team-member"><img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=900&q=80" alt="Abogada mercantil"><h3>Lucía Sánchez</h3><p>Asociada senior · Mercantil, Laboral y M&A.</p></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="casos">
-    <div class="container">
-      <h2 class="section-title">Casos y experiencia</h2>
-      <div class="grid-3">
-        <article class="card case-card"><img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80" alt="Caso societario"><h3>Reestructuración societaria</h3><p>Asistencia integral a grupo empresarial familiar con reducción de contingencias legales y fiscales.</p></article>
-        <article class="card case-card"><img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=900&q=80" alt="Caso inmobiliario"><h3>Litigio inmobiliario complejo</h3><p>Defensa exitosa en conflicto por vicios ocultos y resolución contractual en promoción residencial.</p></article>
-        <article class="card case-card"><img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=900&q=80" alt="Caso laboral"><h3>Conflicto laboral colectivo</h3><p>Negociación y cierre de acuerdo en menos de 30 días con reducción significativa del riesgo judicial.</p></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="opiniones">
-    <div class="container">
-      <h2 class="section-title">Opiniones de clientes</h2>
-      <div class="grid-3">
-        <article class="card testimonial"><div class="stars">★★★★★</div><p>“Desde el primer contacto entendieron nuestro problema y construyeron una estrategia impecable.”</p><strong>Carlos M. · Director Financiero</strong></article>
-        <article class="card testimonial"><div class="stars">★★★★★</div><p>“Rigurosos, transparentes y muy rápidos. La comunicación por WhatsApp fue clave en todo el proceso.”</p><strong>Elena P. · Empresaria</strong></article>
-        <article class="card testimonial"><div class="stars">★★★★★</div><p>“Un equipo serio y humano. Me sentí acompañado en cada paso hasta resolver el conflicto.”</p><strong>Víctor A. · Cliente particular</strong></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <h2 class="section-title">Proceso de trabajo</h2>
-      <div class="grid-4">
-        <article class="process-step"><span class="num">1</span><h4>Contacto</h4><p>Nos escribes por WhatsApp y recogemos la información inicial.</p></article>
-        <article class="process-step"><span class="num">2</span><h4>Análisis</h4><p>Revisión jurídica del caso con diagnóstico preliminar.</p></article>
-        <article class="process-step"><span class="num">3</span><h4>Estrategia</h4><p>Definimos acciones, tiempos y escenarios posibles.</p></article>
-        <article class="process-step"><span class="num">4</span><h4>Resolución</h4><p>Ejecutamos la defensa o negociación hasta cerrar el caso.</p></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section faq">
-    <div class="container">
-      <h2 class="section-title">Preguntas frecuentes</h2>
-      <details><summary>¿Cuánto cuesta la consulta inicial?</summary><p>La primera consulta de orientación tiene tarifa fija de 90 €, descontable si se formaliza la contratación del asunto.</p></details>
-      <details><summary>¿Cuánto tarda en resolverse un caso?</summary><p>Depende de la vía (negociación o judicial), complejidad y juzgado competente. Siempre entregamos estimación de tiempos desde el inicio.</p></details>
-      <details><summary>¿La consulta inicial puede ser online?</summary><p>Sí. Puedes realizarla por videollamada o presencialmente en despacho, según tu preferencia.</p></details>
-      <details><summary>¿Qué tipo de casos no aceptáis?</summary><p>No asumimos asuntos fuera de nuestras áreas de práctica ni casos que presenten conflicto de interés con clientes actuales.</p></details>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="cta-band">
-        <h3>Consulta tu caso con un equipo profesional</h3>
-        <p>Recibe una valoración jurídica inicial y define el siguiente paso con seguridad.</p>
-        <a class="btn btn-primary" href="https://wa.me/34600111222?text=Hola%2C%20quiero%20una%20consulta%20jur%C3%ADdica">Solicitar consulta por WhatsApp</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="contacto">
-    <div class="container">
-      <div class="cta-band" style="background:#123a5c;">
-        <h3>Estamos aquí para ayudarte. Contacta ahora y estudiaremos tu caso.</h3>
-        <a class="btn btn-primary" href="https://wa.me/34600111222?text=Hola%2C%20necesito%20ayuda%20legal%20urgente">👉 Hablar por WhatsApp</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container grid-2 location-grid">
-      <div>
-        <h2>Ubicación del despacho</h2>
-        <p>Calle de Serrano 45, 4º Planta, 28001 Madrid, España.<br>Atención de lunes a viernes de 9:00 a 19:30.</p>
-        <p><strong>Teléfono:</strong> +34 91 456 78 90<br><strong>Email:</strong> contacto@lexaurea.com</p>
-      </div>
-      <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Calle+de+Serrano+45+Madrid&output=embed" title="Mapa del bufete Lex Aurea"></iframe>
-    </div>
-  </section>
-
-  <footer>
-    <div class="container grid-3">
-      <div>
-        <a class="logo" href="#inicio">LEX <span>AUREA</span></a>
-        <p>Bufete de abogados premium especializado en defensa jurídica estratégica para particulares y empresas.</p>
-      </div>
-      <div class="footer-links">
-        <h4>Navegación</h4>
-        <ul>
-          <li><a href="#inicio">Inicio</a></li>
-          <li><a href="#especialidades">Especialidades</a></li>
-          <li><a href="#equipo">Equipo</a></li>
-          <li><a href="#casos">Casos</a></li>
-          <li><a href="#contacto">Contacto</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Contacto</h4>
-        <p>Calle de Serrano 45, Madrid</p>
-        <p>+34 91 456 78 90</p>
-        <p>contacto@lexaurea.com</p>
-        <div class="social" aria-label="Redes sociales">
-          <a href="https://facebook.com" aria-label="Facebook">f</a>
-          <a href="https://instagram.com" aria-label="Instagram">ig</a>
-          <a href="https://linkedin.com" aria-label="LinkedIn">in</a>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <a class="sticky-wa" href="https://wa.me/34600111222?text=Hola%2C%20quiero%20asesoramiento%20legal">WhatsApp</a>
-</body>
-</html>
+ (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
+diff --git a/index.html b/index.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..886ae98751d6292e2c8c9a1f841de5e0e951eff9
+--- /dev/null
++++ b/index.html
+@@ -0,0 +1,522 @@
++<!DOCTYPE html>
++<html lang="es">
++<head>
++  <meta charset="UTF-8" />
++  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
++  <title>Lex Aurea | Bufete de Abogados Premium</title>
++  <link rel="preconnect" href="https://fonts.googleapis.com">
++  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
++  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
++  <style>
++    :root {
++      --bg: #f7f7f5;
++      --white: #ffffff;
++      --text: #171717;
++      --muted: #52525b;
++      --border: #e4e4e7;
++      --brand: #0f2a43;
++      --brand-2: #123a5c;
++      --gold: #b28a4a;
++      --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
++      --radius: 18px;
++    }
++
++    * { box-sizing: border-box; margin: 0; padding: 0; }
++
++    html { scroll-behavior: smooth; }
++
++    body {
++      font-family: 'Inter', sans-serif;
++      color: var(--text);
++      background: var(--bg);
++      line-height: 1.6;
++    }
++
++    img { width: 100%; display: block; border-radius: 14px; object-fit: cover; }
++
++    .container {
++      width: min(1080px, 92%);
++      margin-inline: auto;
++    }
++
++    .section { padding: 72px 0; }
++
++    h1, h2, h3, h4 {
++      font-family: 'Playfair Display', serif;
++      line-height: 1.2;
++      color: var(--brand);
++    }
++
++    p { color: var(--muted); }
++
++    .btn {
++      display: inline-flex;
++      align-items: center;
++      justify-content: center;
++      gap: 8px;
++      padding: 14px 24px;
++      border-radius: 999px;
++      text-decoration: none;
++      font-weight: 600;
++      font-size: 0.95rem;
++      transition: 0.25s ease;
++      border: 1px solid transparent;
++      min-height: 48px;
++    }
++
++    .btn-primary { background: #25D366; color: #fff; }
++    .btn-primary:hover { filter: brightness(0.95); transform: translateY(-1px); }
++    .btn-secondary {
++      background: transparent;
++      border-color: var(--brand);
++      color: var(--brand);
++    }
++    .btn-secondary:hover { background: var(--brand); color: #fff; }
++
++    .topbar {
++      position: sticky;
++      top: 0;
++      z-index: 1000;
++      background: rgba(255,255,255,.95);
++      border-bottom: 1px solid var(--border);
++      backdrop-filter: blur(8px);
++    }
++
++    .nav {
++      display: flex;
++      align-items: center;
++      justify-content: space-between;
++      gap: 16px;
++      min-height: 76px;
++    }
++
++    .logo {
++      font-family: 'Playfair Display', serif;
++      font-size: 1.4rem;
++      color: var(--brand);
++      text-decoration: none;
++      font-weight: 700;
++      letter-spacing: .4px;
++    }
++
++    .logo span { color: var(--gold); }
++
++    .menu {
++      display: flex;
++      list-style: none;
++      gap: 18px;
++      flex-wrap: wrap;
++      justify-content: center;
++    }
++
++    .menu a {
++      text-decoration: none;
++      color: var(--text);
++      font-weight: 500;
++      font-size: .92rem;
++    }
++
++    .hero {
++      background: linear-gradient(rgba(15,42,67,.78), rgba(15,42,67,.72)),
++      url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1600&q=80') center/cover;
++      color: #fff;
++      min-height: 76vh;
++      display: grid;
++      align-items: center;
++    }
++
++    .hero-wrap {
++      display: grid;
++      grid-template-columns: 1.1fr .9fr;
++      gap: 28px;
++      padding: 56px 0;
++      align-items: center;
++    }
++
++    .hero h1 { color: #fff; font-size: clamp(2rem, 4.5vw, 3.6rem); margin-bottom: 14px; }
++    .hero p { color: #eef2f7; max-width: 58ch; margin-bottom: 24px; font-size: 1.05rem; }
++    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
++
++    .hero-card {
++      background: rgba(255,255,255,.1);
++      border: 1px solid rgba(255,255,255,.35);
++      border-radius: var(--radius);
++      padding: 22px;
++      box-shadow: var(--shadow);
++    }
++
++    .hero-card h3 { color: #fff; margin-bottom: 6px; }
++    .hero-card p { margin-bottom: 0; color: #e7edf4; }
++
++    .grid-4, .grid-3, .grid-2 {
++      display: grid;
++      gap: 18px;
++    }
++
++    .grid-4 { grid-template-columns: repeat(4, 1fr); }
++    .grid-3 { grid-template-columns: repeat(3, 1fr); }
++    .grid-2 { grid-template-columns: repeat(2, 1fr); }
++
++    .card {
++      background: var(--white);
++      border: 1px solid var(--border);
++      border-radius: var(--radius);
++      padding: 20px;
++      box-shadow: var(--shadow);
++    }
++
++    .kpi h3 { font-size: 2rem; color: var(--brand); }
++    .kpi p { font-size: .95rem; }
++
++    .section-title {
++      margin-bottom: 26px;
++      font-size: clamp(1.7rem, 3.8vw, 2.6rem);
++      text-align: center;
++    }
++
++    .section-sub {
++      text-align: center;
++      max-width: 70ch;
++      margin: 0 auto 34px;
++    }
++
++    .specialty img, .team-member img, .case-card img, .about img { height: 220px; }
++    .specialty h3, .team-member h3 { margin: 14px 0 6px; }
++
++    .value-item {
++      display: flex;
++      gap: 12px;
++      align-items: flex-start;
++      background: var(--white);
++      border: 1px solid var(--border);
++      border-radius: 14px;
++      padding: 18px;
++    }
++
++    .value-item span {
++      width: 34px;
++      height: 34px;
++      border-radius: 50%;
++      background: #e7eef6;
++      display: inline-flex;
++      align-items: center;
++      justify-content: center;
++      color: var(--brand);
++      font-weight: 700;
++      flex-shrink: 0;
++    }
++
++    .about { align-items: center; }
++
++    .testimonial .stars { color: var(--gold); font-size: 1rem; margin-bottom: 8px; }
++
++    .process-step {
++      text-align: center;
++      padding: 18px;
++      border-radius: 14px;
++      border: 1px solid var(--border);
++      background: var(--white);
++    }
++
++    .process-step .num {
++      display: inline-flex;
++      width: 38px;
++      height: 38px;
++      border-radius: 50%;
++      background: var(--brand);
++      color: #fff;
++      align-items: center;
++      justify-content: center;
++      font-weight: 700;
++      margin-bottom: 10px;
++    }
++
++    .faq details {
++      background: var(--white);
++      border: 1px solid var(--border);
++      border-radius: 12px;
++      padding: 14px 16px;
++      margin-bottom: 12px;
++    }
++
++    .faq summary { font-weight: 600; cursor: pointer; color: var(--brand); }
++
++    .cta-band {
++      background: var(--brand);
++      color: #fff;
++      border-radius: var(--radius);
++      padding: 34px;
++      text-align: center;
++    }
++
++    .cta-band h3 { color: #fff; font-size: clamp(1.5rem, 3.5vw, 2.2rem); margin-bottom: 8px; }
++    .cta-band p { color: #dbe7f4; margin-bottom: 16px; }
++
++    .location-grid { align-items: stretch; }
++
++    iframe { width: 100%; min-height: 320px; border: 0; border-radius: 14px; }
++
++    footer {
++      background: #0b1e31;
++      color: #dde5ee;
++      margin-top: 64px;
++      padding: 52px 0 32px;
++    }
++
++    footer p, footer a { color: #dde5ee; text-decoration: none; }
++    footer .logo { color: #fff; display: inline-block; margin-bottom: 12px; }
++
++    .footer-links ul { list-style: none; display: grid; gap: 8px; }
++
++    .social {
++      display: flex;
++      gap: 10px;
++      margin-top: 10px;
++    }
++
++    .social a {
++      width: 38px;
++      height: 38px;
++      border-radius: 50%;
++      border: 1px solid rgba(255,255,255,.35);
++      display: inline-flex;
++      align-items: center;
++      justify-content: center;
++      font-weight: 700;
++      font-size: .85rem;
++    }
++
++    .sticky-wa {
++      position: fixed;
++      right: 16px;
++      bottom: 16px;
++      z-index: 999;
++      background: #25D366;
++      color: #fff;
++      border-radius: 999px;
++      padding: 12px 16px;
++      text-decoration: none;
++      font-weight: 700;
++      box-shadow: var(--shadow);
++    }
++
++    @media (max-width: 980px) {
++      .menu { display: none; }
++      .hero-wrap, .grid-4, .grid-3, .grid-2, .about, .location-grid, footer .grid-3 { grid-template-columns: 1fr; }
++      .section { padding: 58px 0; }
++      .hero { min-height: 700px; }
++      .nav { min-height: 68px; }
++      .topbar .btn { display: none; }
++    }
++
++    @media (max-width: 560px) {
++      .container { width: 92%; }
++      .hero p { font-size: 1rem; }
++      .btn { width: 100%; }
++      .sticky-wa { right: 12px; bottom: 12px; }
++    }
++  </style>
++</head>
++<body>
++  <header class="topbar">
++    <div class="container nav">
++      <a class="logo" href="#inicio">LEX <span>AUREA</span></a>
++      <ul class="menu">
++        <li><a href="#inicio">Inicio</a></li>
++        <li><a href="#especialidades">Especialidades</a></li>
++        <li><a href="#equipo">Equipo</a></li>
++        <li><a href="#casos">Casos</a></li>
++        <li><a href="#opiniones">Opiniones</a></li>
++        <li><a href="#contacto">Contacto</a></li>
++      </ul>
++      <a class="btn btn-primary" href="https://wa.me/34600111222?text=Hola%2C%20quiero%20consultar%20mi%20caso">Consulta por WhatsApp</a>
++    </div>
++  </header>
++
++  <section class="hero" id="inicio">
++    <div class="container hero-wrap">
++      <div>
++        <h1>Defendemos tus intereses con rigor, experiencia y compromiso.</h1>
++        <p>En Lex Aurea, combinamos estrategia jurídica de alto nivel con una atención cercana para proteger tu patrimonio, tu empresa y tu tranquilidad en cada fase del proceso legal.</p>
++        <div class="hero-actions">
++          <a class="btn btn-primary" href="https://wa.me/34600111222?text=Hola%2C%20necesito%20asesoramiento%20legal">Hablar por WhatsApp</a>
++          <a class="btn btn-secondary" href="#especialidades">Ver especialidades</a>
++        </div>
++      </div>
++      <article class="hero-card">
++        <h3>Consulta inicial prioritaria</h3>
++        <p>Respuesta en menos de 15 minutos en horario laboral y evaluación preliminar del caso en el primer contacto.</p>
++      </article>
++    </div>
++  </section>
++
++  <section class="section">
++    <div class="container">
++      <h2 class="section-title">Autoridad legal demostrada</h2>
++      <p class="section-sub">Resultados consistentes, metodología precisa y un equipo senior en múltiples áreas legales para clientes particulares y empresas.</p>
++      <div class="grid-4">
++        <article class="card kpi"><h3>22+</h3><p>Años de experiencia jurídica acumulada.</p></article>
++        <article class="card kpi"><h3>1.850+</h3><p>Casos gestionados con seguimiento integral.</p></article>
++        <article class="card kpi"><h3>12</h3><p>Especialidades activas coordinadas por socios.</p></article>
++        <article class="card kpi"><h3>91%</h3><p>Tasa histórica de resolución favorable.</p></article>
++      </div>
++    </div>
++  </section>
++
++  <section class="section" id="especialidades">
++    <div class="container">
++      <h2 class="section-title">Especialidades del bufete</h2>
++      <p class="section-sub">Cobertura jurídica integral para conflictos complejos y decisiones estratégicas con impacto personal, patrimonial o empresarial.</p>
++      <div class="grid-3">
++        <article class="card specialty"><img src="https://images.unsplash.com/photo-1453945619913-79ec89a82c51?auto=format&fit=crop&w=900&q=80" alt="Derecho civil"><h3>Derecho Civil</h3><p>Contratos, reclamaciones, responsabilidad civil y conflictos entre particulares.</p></article>
++        <article class="card specialty"><img src="https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=900&q=80" alt="Derecho penal"><h3>Derecho Penal</h3><p>Defensa y acusación particular en procedimientos penales y delitos económicos.</p></article>
++        <article class="card specialty"><img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=900&q=80" alt="Derecho laboral"><h3>Derecho Laboral</h3><p>Despidos, sanciones, negociación colectiva y reclamaciones salariales.</p></article>
++        <article class="card specialty"><img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=900&q=80" alt="Derecho mercantil"><h3>Derecho Mercantil</h3><p>Sociedades, pactos de socios, concursos y conflictos corporativos.</p></article>
++        <article class="card specialty"><img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=900&q=80" alt="Derecho inmobiliario"><h3>Derecho Inmobiliario</h3><p>Compraventas, arrendamientos, vicios ocultos y litigación urbanística.</p></article>
++        <article class="card specialty"><img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=900&q=80" alt="Herencias"><h3>Herencias</h3><p>Planificación sucesoria, impugnación de testamentos y partición de bienes.</p></article>
++      </div>
++    </div>
++  </section>
++
++  <section class="section">
++    <div class="container">
++      <h2 class="section-title">Propuesta de valor</h2>
++      <div class="grid-3">
++        <article class="value-item"><span>1</span><div><h4>Atención personalizada</h4><p>Un abogado responsable de tu caso y comunicación directa por WhatsApp.</p></div></article>
++        <article class="value-item"><span>2</span><div><h4>Asesoramiento experto</h4><p>Estrategias diseñadas por especialistas con experiencia procesal real.</p></div></article>
++        <article class="value-item"><span>3</span><div><h4>Confidencialidad absoluta</h4><p>Protocolos internos estrictos para proteger información sensible.</p></div></article>
++        <article class="value-item"><span>4</span><div><h4>Estrategia legal sólida</h4><p>Análisis de riesgos, escenarios y plan de acción por fases.</p></div></article>
++        <article class="value-item"><span>5</span><div><h4>Rapidez en gestión</h4><p>Respuesta ágil y seguimiento continuo para evitar bloqueos.</p></div></article>
++        <article class="value-item"><span>6</span><div><h4>Enfoque a resultados</h4><p>Negociación y litigación orientadas a objetivos medibles.</p></div></article>
++      </div>
++    </div>
++  </section>
++
++  <section class="section">
++    <div class="container grid-2 about">
++      <div>
++        <h2>Sobre Lex Aurea</h2>
++        <p>Somos un bufete premium con sede en Madrid, fundado para ofrecer defensa jurídica de alto nivel a clientes que exigen excelencia técnica y trato cercano. Nuestro modelo combina especialización por áreas, coordinación interdisciplinar y una visión estratégica orientada a proteger tus intereses desde el primer día.</p>
++      </div>
++      <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1200&q=80" alt="Despacho de abogados premium en reunión" />
++    </div>
++  </section>
++
++  <section class="section" id="equipo">
++    <div class="container">
++      <h2 class="section-title">Equipo jurídico</h2>
++      <div class="grid-3">
++        <article class="card team-member"><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=900&q=80" alt="Socia directora"><h3>Marta R. Varela</h3><p>Socia directora · Derecho Civil y Patrimonial.</p></article>
++        <article class="card team-member"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&q=80" alt="Abogado penalista"><h3>Javier Ortega</h3><p>Socio · Penal Económico y Compliance.</p></article>
++        <article class="card team-member"><img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=900&q=80" alt="Abogada mercantil"><h3>Lucía Sánchez</h3><p>Asociada senior · Mercantil, Laboral y M&A.</p></article>
++      </div>
++    </div>
++  </section>
++
++  <section class="section" id="casos">
++    <div class="container">
++      <h2 class="section-title">Casos y experiencia</h2>
++      <div class="grid-3">
++        <article class="card case-card"><img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80" alt="Caso societario"><h3>Reestructuración societaria</h3><p>Asistencia integral a grupo empresarial familiar con reducción de contingencias legales y fiscales.</p></article>
++        <article class="card case-card"><img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=900&q=80" alt="Caso inmobiliario"><h3>Litigio inmobiliario complejo</h3><p>Defensa exitosa en conflicto por vicios ocultos y resolución contractual en promoción residencial.</p></article>
++        <article class="card case-card"><img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=900&q=80" alt="Caso laboral"><h3>Conflicto laboral colectivo</h3><p>Negociación y cierre de acuerdo en menos de 30 días con reducción significativa del riesgo judicial.</p></article>
++      </div>
++    </div>
++  </section>
++
++  <section class="section" id="opiniones">
++    <div class="container">
++      <h2 class="section-title">Opiniones de clientes</h2>
++      <div class="grid-3">
++        <article class="card testimonial"><div class="stars">★★★★★</div><p>“Desde el primer contacto entendieron nuestro problema y construyeron una estrategia impecable.”</p><strong>Carlos M. · Director Financiero</strong></article>
++        <article class="card testimonial"><div class="stars">★★★★★</div><p>“Rigurosos, transparentes y muy rápidos. La comunicación por WhatsApp fue clave en todo el proceso.”</p><strong>Elena P. · Empresaria</strong></article>
++        <article class="card testimonial"><div class="stars">★★★★★</div><p>“Un equipo serio y humano. Me sentí acompañado en cada paso hasta resolver el conflicto.”</p><strong>Víctor A. · Cliente particular</strong></article>
++      </div>
++    </div>
++  </section>
++
++  <section class="section">
++    <div class="container">
++      <h2 class="section-title">Proceso de trabajo</h2>
++      <div class="grid-4">
++        <article class="process-step"><span class="num">1</span><h4>Contacto</h4><p>Nos escribes por WhatsApp y recogemos la información inicial.</p></article>
++        <article class="process-step"><span class="num">2</span><h4>Análisis</h4><p>Revisión jurídica del caso con diagnóstico preliminar.</p></article>
++        <article class="process-step"><span class="num">3</span><h4>Estrategia</h4><p>Definimos acciones, tiempos y escenarios posibles.</p></article>
++        <article class="process-step"><span class="num">4</span><h4>Resolución</h4><p>Ejecutamos la defensa o negociación hasta cerrar el caso.</p></article>
++      </div>
++    </div>
++  </section>
++
++  <section class="section faq">
++    <div class="container">
++      <h2 class="section-title">Preguntas frecuentes</h2>
++      <details><summary>¿Cuánto cuesta la consulta inicial?</summary><p>La primera consulta de orientación tiene tarifa fija de 90 €, descontable si se formaliza la contratación del asunto.</p></details>
++      <details><summary>¿Cuánto tarda en resolverse un caso?</summary><p>Depende de la vía (negociación o judicial), complejidad y juzgado competente. Siempre entregamos estimación de tiempos desde el inicio.</p></details>
++      <details><summary>¿La consulta inicial puede ser online?</summary><p>Sí. Puedes realizarla por videollamada o presencialmente en despacho, según tu preferencia.</p></details>
++      <details><summary>¿Qué tipo de casos no aceptáis?</summary><p>No asumimos asuntos fuera de nuestras áreas de práctica ni casos que presenten conflicto de interés con clientes actuales.</p></details>
++    </div>
++  </section>
++
++  <section class="section">
++    <div class="container">
++      <div class="cta-band">
++        <h3>Consulta tu caso con un equipo profesional</h3>
++        <p>Recibe una valoración jurídica inicial y define el siguiente paso con seguridad.</p>
++        <a class="btn btn-primary" href="https://wa.me/34600111222?text=Hola%2C%20quiero%20una%20consulta%20jur%C3%ADdica">Solicitar consulta por WhatsApp</a>
++      </div>
++    </div>
++  </section>
++
++  <section class="section" id="contacto">
++    <div class="container">
++      <div class="cta-band" style="background:#123a5c;">
++        <h3>Estamos aquí para ayudarte. Contacta ahora y estudiaremos tu caso.</h3>
++        <a class="btn btn-primary" href="https://wa.me/34600111222?text=Hola%2C%20necesito%20ayuda%20legal%20urgente">👉 Hablar por WhatsApp</a>
++      </div>
++    </div>
++  </section>
++
++  <section class="section">
++    <div class="container grid-2 location-grid">
++      <div>
++        <h2>Ubicación del despacho</h2>
++        <p>Calle de Serrano 45, 4º Planta, 28001 Madrid, España.<br>Atención de lunes a viernes de 9:00 a 19:30.</p>
++        <p><strong>Teléfono:</strong> +34 91 456 78 90<br><strong>Email:</strong> contacto@lexaurea.com</p>
++      </div>
++      <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Calle+de+Serrano+45+Madrid&output=embed" title="Mapa del bufete Lex Aurea"></iframe>
++    </div>
++  </section>
++
++  <footer>
++    <div class="container grid-3">
++      <div>
++        <a class="logo" href="#inicio">LEX <span>AUREA</span></a>
++        <p>Bufete de abogados premium especializado en defensa jurídica estratégica para particulares y empresas.</p>
++      </div>
++      <div class="footer-links">
++        <h4>Navegación</h4>
++        <ul>
++          <li><a href="#inicio">Inicio</a></li>
++          <li><a href="#especialidades">Especialidades</a></li>
++          <li><a href="#equipo">Equipo</a></li>
++          <li><a href="#casos">Casos</a></li>
++          <li><a href="#contacto">Contacto</a></li>
++        </ul>
++      </div>
++      <div>
++        <h4>Contacto</h4>
++        <p>Calle de Serrano 45, Madrid</p>
++        <p>+34 91 456 78 90</p>
++        <p>contacto@lexaurea.com</p>
++        <div class="social" aria-label="Redes sociales">
++          <a href="https://facebook.com" aria-label="Facebook">f</a>
++          <a href="https://instagram.com" aria-label="Instagram">ig</a>
++          <a href="https://linkedin.com" aria-label="LinkedIn">in</a>
++        </div>
++      </div>
++    </div>
++  </footer>
++
++  <a class="sticky-wa" href="https://wa.me/34600111222?text=Hola%2C%20quiero%20asesoramiento%20legal">WhatsApp</a>
++</body>
++</html>
+ 
+EOF
+)
